@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+    
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翔翔旅行社  全台最大日本自由邢</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+
+/*標題*/
+* {
+    margin: 10;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;         
+    background-color: #f0f0f094;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;  /* 讓內容水平置中 */
+    align-items: center;      /* 讓內容垂直對齊 */
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 2px solid #eee;
+    gap: 20px; /* 增加 LOGO、選單、Icons 之間的距離 */
+    position: relative; 
+    z-index: 10; /* 確保選單不會被幻燈片蓋住 */
+    background: white;
+}
+
+
+
+/* 確保選單佔據足夠空間，讓其內容居中 */
+.menu {
+    flex-grow: 1; /* 讓 menu 佔據最大可能的空間 */
+    display: flex;
+    justify-content: center; /* 讓 ul 內的項目居中 */
+}
+
+/* 選單的 UL 調整 */
+.menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* 確保選單項目在 UL 內部也居中 */
+    padding: 0;
+}
+
+/* 選單項目 */
+.menu ul li {
+    margin: 0 15px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons img {
+    height: 20px;
+}
+
+.search-icon, .profile-icon {
+    font-size: 18px;
+}
+/*標題*/
+
+
+/*標題旅行社圖片*/
+.logo {
+    display: flex;
+    align-items: center; /* 讓圖片與文字對齊 */
+    gap: 10px; /* 增加 LOGO 與文字間距 */
+}
+
+.logo img {
+    height: 60px; /* 調整 LOGO 圖片大小 */
+}
+
+.logo-text {
+    font-size: 40px; /* 增大字體 */
+    font-weight: bold;
+    color: #0799fa; 
+    white-space: nowrap; /* 確保文字不會換行 */
+}
+
+/*標題旅行社圖片*/
+
+
+
+
+
+/* 滑鼠懸停時顯示彈窗 */
+.news-item {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* 🔹 確保 `.popup` 預設隱藏 */
+/* 🔹 確保 `.popup` 預設隱藏 */
+.popup {
+    display: none; /* 確保預設隱藏 */
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 9999;
+    text-align: center;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    display: none !important; /* 強制隱藏，避免其他 CSS 覆蓋 */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* 🔹 當滑鼠懸停在 `.news-item` 時才顯示 `.popup` */
+.news-item:hover .popup {
+    display: flex !important; /* 強制顯示 */
+}
+
+/* 🔹 確保圖片完整顯示 */
+.popup img {
+    max-width: 95vw;
+    max-height: 85vh;
+    object-fit: contain; 
+    display: block;
+}
+
+/* 🔹 確保段落文字換行且不重疊 */
+.popup p {
+    margin: 5px 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+/* 🔹 超連結樣式 */
+.popup a {
+    display: block;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.popup a:hover {
+    text-decoration: underline;
+}
+
+
+.news-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.news-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.news-card {
+    width: 300px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+.news-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.news-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.news-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.news-card a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #0799fa; 
+    font-weight: bold;
+}
+
+.beginning {
+    max-width: 1000px; /* 可依需要調整容器寬度 */
+    margin: 0 auto;
+    text-align: left;
+    margin-bottom: 50px; /* 調整數值來增加或減少間距 */
+}
+
+
+.beginning h2 {
+    font-size: 30px;
+    margin-bottom: 40px; /* 標題與下方內容的間距 */
+}
+
+/* 新增一個容器來包圖片與註解 */
+.beginning .image-caption-container {
+    display: flex;
+    align-items: flex-start; /* 註解與圖片頂部對齊，可依需要調整 */
+}
+
+.beginning .image-caption-container img {
+    width: 720px;
+    height: 480px;
+    display: block;
+    border-radius: 15px;  /* 調整這個值來控制圓角的大小 */
+}
+
+
+.beginning .caption {
+    margin-left: 15px;  /* 註解與圖片之間的間距 */
+    font-size: 16px;    /* 可自行調整註解文字大小 */
+}
+
+.Tour_Highlights h1 {
+    font-size: 40px;
+    color: #0799fa;
+    margin-bottom: 15px; /* 標題與下方內容的間距 */
+}
+
+.Tour_Highlights img{
+    width: 800px;
+    height: 600px;
+    border-radius: 15px;
+}
+
+.Tour_Highlights {
+    text-align: center;
+    max-width: 1000px;  /* 限制區塊寬度 */
+    margin: 0 auto;  /* 讓內容置中 */
+}
+
+.Tour_Highlights p {
+    max-width: 1000px; /* 讓文字寬度與圖片相同 */
+    margin: 10px auto; /* 讓文字置中 */
+    text-align: justify; /* 讓文字左右對齊 */
+    font-size: 18px; /* 調整字體大小 */
+    line-height: 1.8; /* 增加行距，讓閱讀更舒服 */
+    color: #333; /* 設定文字顏色 */
+}
+
+/* 讓 .journey 區塊的最大寬度與文字一致 */
+.journey {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 左側較大，右側為兩張圖片 */
+    grid-template-rows: 1fr 1fr; /* 右側上下兩張 */
+    grid-template-rows: 1fr 1fr auto; /* 增加第三行來放三張新圖片 */
+    gap: 10px; /* 圖片間距 */
+    max-width: 1000px; /* 設定最大寬度，與 p 段落一致 */
+    margin: 0 auto; /* 讓區塊置中 */
+}
+
+
+
+.journey img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 確保圖片不變形 */
+}
+
+.journey p {
+    max-width: 100%; /* 讓文字寬度與圖片一致 */
+    text-align: justify; /* 讓文字對齊 */
+    font-size: 18px; /* 文字大小 */
+    line-height: 1.8; /* 行距，讓閱讀更舒服 */
+    color: #333; /* 文字顏色 */
+    padding: 10px; /* 內邊距，讓文字與圖片有間距 */
+}
+
+.journey h1 {
+    font-size: 40px;
+    color: #0799fa;
+}
+
+/* 讓左側的主圖占據兩行 */
+.journey .main-img {
+    grid-row: span 2; /* 讓這張圖片佔據兩行 */
+}
+
+.journey .extra-images {
+    grid-column: span 2; /* 讓這一排橫跨整個區塊 */
+    display: flex;
+    justify-content: space-between; /* 讓三張圖片平均排列 */
+    gap: 10px;
+}
+
+.journey .extra-images img {
+    width: calc(25% - 7.5px); /* 讓每張圖片佔 1/3 寬度，並減去間距 */
+    height: auto; /* 保持圖片原比例 */
+    object-fit: cover; /* 確保圖片不變形 */
+    border-radius: 5px; /* 讓畫面更柔和 */
+}
+
+.journey-text {
+    max-width: 1000px; /* 限制文字區塊的最大寬度 */
+    margin: 0 auto; /* 讓文字區塊置中 */
+    text-align: justify; /* 讓文字左右對齊 */
+    font-size: 18px; /* 文字大小 */
+    line-height: 1.8; /* 調整行距讓閱讀更舒服 */
+    color: #333; /* 文字顏色 */
+    padding-top: 15px; /* 讓文字與圖片之間有適當間距 */
+}
+
+
+/*try try see*/
+
+
+.container {
+    display: flex;
+    align-items: stretch; /* 讓內容垂直置中 */
+    gap: 20px; /* 圖片與白色框框的間距 */
+    max-width: 1000px; /* 限制最大寬度 */
+    margin: 20px auto; /* 讓整個區塊置中 */
+}
+
+/* 圖片樣式 */
+.container img {
+    width: 65%; /* 圖片占 50% 空間 */
+    border-radius: 10px; /* 圓角效果 */
+    object-fit: cover;
+}
+
+/* 右側白色框框 */
+.price-card {
+    background: #ffffff;  /* 白色背景 */
+    border-radius: 10px;  /* 圓角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  /* 陰影 */
+    padding: 20px;  /* 內邊距 */
+    width: 35%;  /* 讓框框與圖片各占一半 */
+    text-align: center; /* 讓內容置中 */
+}
+
+/* 價格字體 */
+.price  {
+    font-size: 30px;
+    font-weight: bold;
+    color:#0799fa; 
+    margin: 10px 0;
+}
+
+
+
+
+
+/* 底部裝飾區域 */
+.price-card .footer {
+    background: #f6f6f6;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.divider-line {
+    display: flex;
+    align-items: center;  /* 讓內容垂直置中 */
+    justify-content: center;  /* 讓內容水平置中 */
+    width: 80%;  /* 設定寬度 */
+    margin: 40px auto;  /* 讓線條置中，並增加上下間距 */
+    position: relative;  /* 讓文字可以絕對定位 */
+    
+}
+
+.divider-line::before,
+.divider-line::after {
+    content: "";
+    flex: 1;  /* 讓左右兩條線平均分配空間 */
+    height: 1px;  /* 設定線條的粗細 */
+    background-color: #000000;   /* 設定黑色 */
+    margin: 0 10px;  /* 讓線條與文字間有一點距離 */
+}
+
+.divider-text {
+    font-size: 35px;  /* 文字大小 */
+    font-weight: bold;  /* 加粗 */
+    white-space: nowrap;  /* 防止換行 */
+    
+}
+
+
+
+/* try try see*/
+
+/* 航班資訊*/
+.flight-card {
+    background: #ffffff; /* 白色背景 */
+    border-radius: 10px; /* 圓角邊框 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 陰影 */
+    padding: 20px;
+    max-width: 900px; /* 限制寬度 */
+    margin: 20px auto;
+}
+
+/* 標題樣式 */
+.flight-card h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* 提示文字 */
+.flight-card .notice {
+    color: #ff6600;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* 表格樣式 */
+.flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.flight-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.flight-table tr:last-child td {
+    border-bottom: none; /* 最後一行去掉底線 */
+}
+
+.flight-table .flight-time {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 箭頭樣式 */
+.flight-arrow {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+/* 目的地字體顏色 */
+.destination {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 淡色日期 */
+.gray-text {
+    color: #999;
+    font-size: 14px;
+}
+
+/* 航班資訊*/
+
+.space {
+    margin-top: 50px; /* 在上方加 50px 空間 */
+    margin-bottom: 50px; /* 在下方加 50px 空間 */
+}
+
+.space_15 {
+    margin-top: 15px; /* 在上方加 50px 空間 */
+    margin-bottom: 15px; /* 在下方加 50px 空間 */
+}
+
+.abc img {
+    width: 65%;
+    height: 100%;
+    object-fit: cover; /* 確保圖片不變形 */
+    display: block; /* 讓圖片成為區塊元素 */
+    margin: 0 auto; /* 讓圖片水平置中 */
+}
+
+
+</style>
+
+
+
+<body>
+    <div id="header-container"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("header-container").innerHTML = data;
+      })
+      .catch(error => console.error("載入 header 失敗:", error));
+  });
+</script>
+
+
+
+    
+    <div class="beginning">
+
+        <h2>縱貫關西 X 橫躍四國 X
+            <span title="擅長捉弄人的高木同學、缘结甘神家、名偵探柯南、五等分的新娘 ">
+            聖地巡禮
+        </span>
+        <div class="container">
+            <!-- 左側圖片 -->
+            <img src="https://www.bubu-jp.com/wp-content/uploads/2024/02/pixta_71851928_M.jpg" alt="新倉山淺間公園">
+            
+            <!-- 右側白色框框 -->
+            <div class="price-card">
+                <p style="font-size: 25px; color: blue; font-weight: bold; text-align: center;">TWD 30,000(不含餐)</p>
+            
+                <!-- 這五行先靠左，再向右移一點 -->
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">成團人數:12人</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">旅遊方式:自駕</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">去程2026暑(預計7天7夜)</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">回程2026暑</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">城市:關東</p>
+            
+                <p style="font-size: 20px; color: black; font-weight: bold; text-align: center;">翔翔旅行社保留最終解釋權</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="flight-card">
+        <h2>✈ 本次航班</h2>
+        <p class="notice">還沒確定</p>
+        
+        <table class="flight-table">
+            <tr>
+                <td>去程</td>
+                <td>泰獅<br><span class="gray-text">SL394</span></td>
+                <td class="gray-text">2025/03/18 (二)</td>
+                <td class="flight-time">12:10</td>
+                <td class="destination">台灣桃園國際機場</td>
+                <td class="flight-arrow">→</td>
+                <td class="flight-time">16:15</td>
+                <td class="destination">東京成田機場</td>
+            </tr>
+            <tr>
+                <td>回程</td>
+                <td>泰獅<br><span class="gray-text">SL395</span></td>
+                <td class="gray-text">2025/03/22 (六)</td>
+                <td class="flight-time">17:15</td>
+                <td class="destination">東京成田機場</td>
+                <td class="flight-arrow">→</td>
+                <td class="flight-time">20:20</td>
+                <td class="destination">台灣桃園國際機場</td>
+            </tr>
+        </table>
+    </div>
+    
+    
+    <div class="divider-line">
+        <span class="divider-text">行程特色</span>
+    </div>
+    
+    <h1 style="font-size: 30px; color:blue;"> 
+        <span title="擅長捉弄人的高木同學、缘结甘神家、名偵探柯南、五等分的新娘">
+        聖地巡禮地點  
+        </span>      
+    </h1>
+    <div class="abc">
+      <img src="sd_3.jpg" alt="主圖片">
+    </div>
+
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:blue;">和歌山</h1>
+    <div class="journey">
+        <img src="https://visitwakayama.jp/lsc/upfile/spot/0000/0661/661_3_l.jpg" alt="主圖片" class="main-img">
+        <img src="https://visitwakayama.jp/lsc/upfile/spot/0000/0589/589_1_l.jpg" alt="右上圖片">
+        <img src="https://visitwakayama.jp/lsc/upfile/spot/0000/0542/542_3_l.jpg" alt="右下圖片">
+    </div>
+
+    <p class="journey-text"><strong>和歌山</strong>（Ōmuroyama）和歌山縣位於日本關西地區，是一個融合歷史文化、海鮮美食和溫泉的旅遊勝地，擁有壯麗的自然景觀和悠久的歷史遺跡。以下是幾個和歌山的代表性景點：
+    </p>
+    <p class="journey-text">
+        <strong>特色介紹：</strong><br>
+    </p>
+    <p class="journey-text">
+        <strong> 和歌山城</strong><br>
+        和歌山城是和歌山市的象徵，最初由豐臣秀吉的弟弟豐臣秀長於1585年建造，後來成為德川御三家之一「紀州德川家」的居城。<br>
+        特色：城內的「天守閣」可以俯瞰整個和歌山市區，春天時櫻花盛開，吸引大量遊客前來賞花。<br>
+        歷史價值：戰國時代至江戶時代的重要軍事據點，具有深厚的歷史文化底蘊。
+    <p class="journey-text">   
+        <strong>黑潮市場</strong><br>
+        這是和歌山最著名的海鮮市場，以新鮮的海產和現場表演「生鮪魚解體秀」聞名。
+        特色：可以現場品嚐當天捕獲的鮮魚、壽司、燒烤海鮮等。
+        推薦美食：和歌山特產「生鮪魚壽司」、新鮮海膽蓋飯。
+    </p> 
+    <p class="journey-text">    
+        <strong> 湯淺醬油釀造所</strong><br>
+        可以參觀傳統釀造過程，品嚐各種風味獨特的醬油，甚至親手製作醬油。<br>
+        湯淺醬油以濃郁的風味著稱，受到日本各地料理職人的喜愛。     
+    </p>
+    <div class="space_15"></div>
+    <h1 style="font-size: 30px; color:blue;">濱千鳥之湯 海舟</h1>
+    <div class="journey">
+        <img src="https://img1.cdn-eztravel.com.tw/images/1mc6k12000dq0d60i3540_C_790_444_R5_Q70.jpg" alt="主圖片" class="main-img">
+        <img src="https://img1.cdn-eztravel.com.tw/images/1mc6y12000dq0dqdr9B30_C_790_444_R5_Q70.jpg" alt="右上圖片">
+        <img src="https://img1.cdn-eztravel.com.tw/images/1mc5y12000b8xf6mcFC54_C_790_444_R5_Q70.jpg" alt="右下圖片">
+        <div class="extra-images">
+            <img src="https://img1.cdn-eztravel.com.tw/images/1mc5r12000dq0zjkmB600_C_800_525_R5_Q70.jpg" alt="Extra Image 1">
+            <img src="https://img1.cdn-eztravel.com.tw/images/1mc5112000b6y1dk9493A_C_790_444_R5_Q70.jpg" alt="Extra Image 2">
+            <img src="https://img1.cdn-eztravel.com.tw/images/1mc1412000b8xlr7jE9D4_C_790_444_R5_Q70.jpg" alt="Extra Image 3">
+            <img src="https://img1.cdn-eztravel.com.tw/images/1mc1s12000dr1fewd76B0_C_790_444_R5_Q70.jpg" alt="Extra Image 4">
+        </div>
+    </div>  
+
+    <p class="journey-text">    
+        <strong>特色介紹:</strong><br>
+        <p class="journey-text">
+            <strong>海景露天溫泉</strong><br>
+        旅館最大的亮點是「面朝大海的露天溫泉」，溫泉池設計與海天相連，讓人彷彿浸泡在海洋之中。<br>
+        在日出或日落時分泡湯，可以欣賞到絕美的橘紅色海景。
+        </p> 
+        <p class="journey-text"><strong>和風奢華住宿環境</strong><br>
+            旅館內部採用傳統日式建築風格，結合現代設計，營造出寧靜而優雅的氛圍。<br>
+            許多房間附設私人露天風呂，讓住客能夠獨享溫泉時光。
+        </p>
+        <p class="journey-text">
+            <strong>多樣化溫泉體驗</strong><br> 
+        除了大浴場和露天溫泉，還有貸切風呂（包租私人溫泉）。<br>
+        旅館使用的溫泉來自南紀白濱溫泉，這裡是日本最古老的三大溫泉之一，泉水對肌膚有保濕效果，被稱為「美肌之湯」。
+        </p>    
+        <p class="journey-text">
+            <strong>休息區與服務</strong><br>
+        ​在溫泉區的休息區，提供免費的冰棒和養樂多等飲品，供您在泡湯後享用，放鬆身心<br>
+        下午時段，旅館在大廳提供免費的迎賓飲料，包括啤酒和燒酒等，讓您在入住時感受到賓至如歸的氛圍<br>
+        館內設有商店，販售各種當地特色的伴手禮和紀念品，方便旅客選購。
+        </p>
+        <p class="journey-text"><strong>傳統懷石料理</strong><br>
+            館內提供使用當地新鮮海鮮（如鮪魚、伊勢龍蝦、熊野牛）的高級會席料理。<br>
+            可以在和式包廂內享用，體驗正宗的日本美食文化。<br>
+            這家旅館的高級感、私密性與無敵海景，使其成為許多遊客前往和歌山旅遊時的夢幻住宿選擇！
+        </p>      
+    </p>
+
+    <div class="space_15"></div>
+    <h1 style="font-size: 30px; color:blue;">小豆島</h1>
+    <div class="journey">
+        <img src="https://miro.medium.com/v2/resize:fit:1400/0*dFQ6XlaH2ABB0FSP" alt="主圖片" class="main-img">
+        <img src="https://www.coolkagawa.jp/media/001/202401/mode3_w858-4c3650c14cba04a6fa17eb50651245b0809bd6871e9de9629a4924b830918234.jpg" alt="右上圖片">
+        <img src="https://wall.bahamut.com.tw/B/00/b17dcad89963b4258ae1356247b850c5_0010866.JPG" alt="右下圖片">
+        <div class="extra-images">
+            <img src="https://wall.bahamut.com.tw/B/71/92812af070088f4765a78cceeb201a3b_7177289.JPG" alt="Extra Image 1">
+            <img src="https://wall.bahamut.com.tw/B/73/92915182c891bb32cb84ab3d97b59206_7316589.JPG" alt="Extra Image 2">
+            <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*LgzvWKonrWdXQpedQ5gIng.jpeg" alt="Extra Image 3">
+            <img src="https://wall.bahamut.com.tw/B/36/b4a81f1c501ae4cebdf5cea7b78f55cf_3666429.JPG" alt="Extra Image 4">
+        </div>
+    </div>  
+    <p class="journey-text"><strong>小豆島</strong>（Shōdoshima）是日本瀨戶內海中的一座美麗島嶼，屬於香川縣，以其橄欖、天使之路、寒霞溪及瀨戶內國際藝術祭聞名。
+        此外，近年來因為動畫《擅長捉弄人的高木同學》在此取景，吸引了眾多動漫迷前來聖地巡禮。
+    </p>
+    <p class="journey-text">    
+        <strong>圖片介紹:</strong><br>
+        <p class="journey-text">
+            <strong>《擅長捉弄人的高木同學》聖地巡禮</strong>（左上圖片）<br>
+            小豆島土庄町是動畫《擅長捉弄人的高木同學》的取景地，許多場景與當地環境相似，成為動漫迷的聖地巡禮景點。<br>
+            官方舞台探訪地圖（圖片左上）標示了動畫內的取景地，如學校、河堤、商店等，粉絲可以依照地圖探訪。<br>
+            <strong>御朱印</strong>（右上圖片）：富丘八幡神社推出了<strong>特別版的高木同學聯名御朱印</strong>，吸引粉絲參拜與收藏。
+        </p> 
+        <p class="journey-text">
+            <strong>約束之丘上的戀人之鐘</strong>（左下圖片）<br> 
+            約束之丘（約束の丘）位於小豆島的寒霞溪山頂，是當地著名的浪漫景點，被認定為「戀人聖地」。
+            這裡設有戀人之鐘（愛之鐘），吸引許多情侶前來敲鐘許願，象徵永恆的愛情。<br>
+            (之前爬巴哈的文上有看到作者提及單身的人不要敲鐘XD(因為聲音很大會成為整條天使之路的焦點)<br><br>
+            絕美景色：<br>
+            這裡是寒霞溪的最佳觀景點之一，可以眺望<strong>壯麗的瀨戶內海、山谷與小豆島全景</strong>。<br>
+            特別是在日出與日落時分，天空染上橘紅色，景色格外夢幻，是求婚或約會的絕佳地點。
+        </p>
+       
+        <p class="journey-text">
+            <strong>寒霞溪</strong><br> 
+            日本三大溪谷之一，以壯麗的懸崖絕景與四季變化聞名，秋天的紅葉景色特別吸引遊客。<br>
+            可搭乘纜車或健行登頂，從山頂可以俯瞰整個瀨戶內海與小豆島的壯麗景色。
+        </p> 
+        <p class="journey-text">
+            <strong> 重岩</strong><br> 
+            這是一座位於山頂的奇特巨石，兩塊巨石疊在一起形成神秘景觀，被認為是「日本最強的能量景點之一」。<br>
+            當地傳說認為來此祈願可以帶來強大的好運與保佑。
+        </p>    
+        <p class="journey-text">
+            <strong>鹿島明神社</strong>（右下圖片）<br>
+            當地歷史悠久的神社，是島民信仰的中心，建築樸實而莊嚴。<br>
+            來訪此地可以感受小豆島的傳統文化氛圍。
+        </p>
+           
+    </p>
+
+
+
+    <div class="space"></div> <!-- 這是一個隱形空白區塊 -->
+
+    
+
+
+</body>
+</html>

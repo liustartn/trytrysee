@@ -1,0 +1,985 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+    
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翔翔旅行社  全台最大日本自由邢</title>
+    <link rel="stylesheet" href="styles.css">
+        <style>
+            summary {
+                cursor: pointer;
+                color: blue;
+                text-decoration: underline;
+            }
+            details[open] summary {
+                color: red;
+            }
+        </style>
+</head>
+
+<style>
+
+/*標題*/
+* {
+    margin: 10;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;         
+    background-color: #f0f0f094;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;  /* 讓內容水平置中 */
+    align-items: center;      /* 讓內容垂直對齊 */
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 2px solid #eee;
+    gap: 20px; /* 增加 LOGO、選單、Icons 之間的距離 */
+    position: relative; 
+    z-index: 10; /* 確保選單不會被幻燈片蓋住 */
+    background: white;
+}
+
+
+
+/* 確保選單佔據足夠空間，讓其內容居中 */
+.menu {
+    flex-grow: 1; /* 讓 menu 佔據最大可能的空間 */
+    display: flex;
+    justify-content: center; /* 讓 ul 內的項目居中 */
+}
+
+/* 選單的 UL 調整 */
+.menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* 確保選單項目在 UL 內部也居中 */
+    padding: 0;
+}
+
+/* 選單項目 */
+.menu ul li {
+    margin: 0 15px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.icons img {
+    height: 20px;
+}
+
+.search-icon, .profile-icon {
+    font-size: 18px;
+}
+/*標題*/
+
+
+/*標題旅行社圖片*/
+.logo {
+    display: flex;
+    align-items: center; /* 讓圖片與文字對齊 */
+    gap: 10px; /* 增加 LOGO 與文字間距 */
+}
+
+.logo img {
+    height: 60px; /* 調整 LOGO 圖片大小 */
+}
+
+.logo-text {
+    font-size: 40px; /* 增大字體 */
+    font-weight: bold;
+    color: #0799fa; 
+    white-space: nowrap; /* 確保文字不會換行 */
+}
+
+/*標題旅行社圖片*/
+
+
+
+
+
+/* 滑鼠懸停時顯示彈窗 */
+.news-item {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* 🔹 確保 `.popup` 預設隱藏 */
+/* 🔹 確保 `.popup` 預設隱藏 */
+.popup {
+    display: none; /* 確保預設隱藏 */
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 9999;
+    text-align: center;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    display: none !important; /* 強制隱藏，避免其他 CSS 覆蓋 */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* 🔹 當滑鼠懸停在 `.news-item` 時才顯示 `.popup` */
+.news-item:hover .popup {
+    display: flex !important; /* 強制顯示 */
+}
+
+/* 🔹 確保圖片完整顯示 */
+.popup img {
+    max-width: 95vw;
+    max-height: 85vh;
+    object-fit: contain; 
+    display: block;
+}
+
+/* 🔹 確保段落文字換行且不重疊 */
+.popup p {
+    margin: 5px 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+/* 🔹 超連結樣式 */
+.popup a {
+    display: block;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.popup a:hover {
+    text-decoration: underline;
+}
+
+
+.news-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.news-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.news-card {
+    width: 300px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+.news-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.news-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.news-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.news-card a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #0799fa; 
+    font-weight: bold;
+}
+
+.beginning {
+    max-width: 1000px; /* 可依需要調整容器寬度 */
+    margin: 0 auto;
+    text-align: left;
+    margin-bottom: 50px; /* 調整數值來增加或減少間距 */
+}
+
+
+.beginning h2 {
+    font-size: 30px;
+    margin-bottom: 40px; /* 標題與下方內容的間距 */
+}
+
+/* 新增一個容器來包圖片與註解 */
+.beginning .image-caption-container {
+    display: flex;
+    align-items: flex-start; /* 註解與圖片頂部對齊，可依需要調整 */
+}
+
+.beginning .image-caption-container img {
+    width: 720px;
+    height: 480px;
+    display: block;
+    border-radius: 15px;  /* 調整這個值來控制圓角的大小 */
+}
+
+
+.beginning .caption {
+    margin-left: 15px;  /* 註解與圖片之間的間距 */
+    font-size: 16px;    /* 可自行調整註解文字大小 */
+}
+
+.Tour_Highlights h1 {
+    font-size: 40px;
+    color: #0799fa;
+    margin-bottom: 15px; /* 標題與下方內容的間距 */
+}
+
+.Tour_Highlights img{
+    width: 800px;
+    height: 600px;
+    border-radius: 15px;
+}
+
+.Tour_Highlights {
+    text-align: center;
+    max-width: 1000px;  /* 限制區塊寬度 */
+    margin: 0 auto;  /* 讓內容置中 */
+}
+
+.Tour_Highlights p {
+    max-width: 1000px; /* 讓文字寬度與圖片相同 */
+    margin: 10px auto; /* 讓文字置中 */
+    text-align: justify; /* 讓文字左右對齊 */
+    font-size: 18px; /* 調整字體大小 */
+    line-height: 1.8; /* 增加行距，讓閱讀更舒服 */
+    color: #333; /* 設定文字顏色 */
+}
+
+/* 讓 .journey 區塊的最大寬度與文字一致 */
+.journey {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 左側較大，右側為兩張圖片 */
+    grid-template-rows: 1fr 1fr; /* 右側上下兩張 */
+    grid-template-rows: 1fr 1fr auto; /* 增加第三行來放三張新圖片 */
+    gap: 10px; /* 圖片間距 */
+    max-width: 1000px; /* 設定最大寬度，與 p 段落一致 */
+    margin: 0 auto; /* 讓區塊置中 */
+}
+
+
+
+.journey img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 確保圖片不變形 */
+}
+
+.journey p {
+    max-width: 100%; /* 讓文字寬度與圖片一致 */
+    text-align: justify; /* 讓文字對齊 */
+    font-size: 18px; /* 文字大小 */
+    line-height: 1.8; /* 行距，讓閱讀更舒服 */
+    color: #333; /* 文字顏色 */
+    padding: 10px; /* 內邊距，讓文字與圖片有間距 */
+}
+
+.journey h1 {
+    font-size: 40px;
+    color: #0799fa;
+}
+
+/* 讓左側的主圖占據兩行 */
+.journey .main-img {
+    grid-row: span 2; /* 讓這張圖片佔據兩行 */
+}
+
+.journey .extra-images {
+    grid-column: span 2; /* 讓這一排橫跨整個區塊 */
+    display: flex;
+    justify-content: space-between; /* 讓三張圖片平均排列 */
+    gap: 10px;
+}
+
+.journey .extra-images img {
+    width: calc(25% - 7.5px); /* 讓每張圖片佔 1/3 寬度，並減去間距 */
+    height: auto; /* 保持圖片原比例 */
+    object-fit: cover; /* 確保圖片不變形 */
+    border-radius: 5px; /* 讓畫面更柔和 */
+}
+
+.journey-text {
+    max-width: 1000px; /* 限制文字區塊的最大寬度 */
+    margin: 0 auto; /* 讓文字區塊置中 */
+    text-align: justify; /* 讓文字左右對齊 */
+    font-size: 18px; /* 文字大小 */
+    line-height: 1.8; /* 調整行距讓閱讀更舒服 */
+    color: #333; /* 文字顏色 */
+    padding-top: 15px; /* 讓文字與圖片之間有適當間距 */
+}
+
+
+/*try try see*/
+
+
+.container {
+    display: flex;
+    align-items: stretch; /* 讓內容垂直置中 */
+    gap: 20px; /* 圖片與白色框框的間距 */
+    max-width: 1000px; /* 限制最大寬度 */
+    margin: 20px auto; /* 讓整個區塊置中 */
+}
+
+/* 圖片樣式 */
+.container img {
+    width: 65%; /* 圖片占 50% 空間 */
+    border-radius: 10px; /* 圓角效果 */
+    object-fit: cover;
+}
+
+/* 右側白色框框 */
+.price-card {
+    background: #ffffff;  /* 白色背景 */
+    border-radius: 10px;  /* 圓角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  /* 陰影 */
+    padding: 20px;  /* 內邊距 */
+    width: 35%;  /* 讓框框與圖片各占一半 */
+    text-align: center; /* 讓內容置中 */
+}
+
+/* 價格字體 */
+.price  {
+    font-size: 30px;
+    font-weight: bold;
+    color:#0799fa; 
+    margin: 10px 0;
+}
+
+
+
+
+
+/* 底部裝飾區域 */
+.price-card .footer {
+    background: #f6f6f6;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.divider-line {
+    display: flex;
+    align-items: center;  /* 讓內容垂直置中 */
+    justify-content: center;  /* 讓內容水平置中 */
+    width: 80%;  /* 設定寬度 */
+    margin: 40px auto;  /* 讓線條置中，並增加上下間距 */
+    position: relative;  /* 讓文字可以絕對定位 */
+    
+}
+
+.divider-line::before,
+.divider-line::after {
+    content: "";
+    flex: 1;  /* 讓左右兩條線平均分配空間 */
+    height: 1px;  /* 設定線條的粗細 */
+    background-color: #000000;   /* 設定黑色 */
+    margin: 0 10px;  /* 讓線條與文字間有一點距離 */
+}
+
+.divider-text {
+    font-size: 35px;  /* 文字大小 */
+    font-weight: bold;  /* 加粗 */
+    white-space: nowrap;  /* 防止換行 */
+    
+}
+
+
+
+/* try try see*/
+
+/* 航班資訊*/
+.flight-card {
+    background: #ffffff; /* 白色背景 */
+    border-radius: 10px; /* 圓角邊框 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 陰影 */
+    padding: 20px;
+    max-width: 900px; /* 限制寬度 */
+    margin: 20px auto;
+}
+
+/* 標題樣式 */
+.flight-card h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* 提示文字 */
+.flight-card .notice {
+    color: #ff6600;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* 表格樣式 */
+.flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.flight-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.flight-table tr:last-child td {
+    border-bottom: none; /* 最後一行去掉底線 */
+}
+
+.flight-table .flight-time {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 箭頭樣式 */
+.flight-arrow {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+/* 目的地字體顏色 */
+.destination {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 淡色日期 */
+.gray-text {
+    color: #999;
+    font-size: 14px;
+}
+
+/* 航班資訊*/
+
+.space {
+    margin-top: 50px; /* 在上方加 50px 空間 */
+    margin-bottom: 50px; /* 在下方加 50px 空間 */
+}
+
+.space_15 {
+    margin-top: 15px; /* 在上方加 50px 空間 */
+    margin-bottom: 15px; /* 在下方加 50px 空間 */
+}
+
+.abc img {
+    width: 65%;
+    height: 100%;
+    object-fit: cover; /* 確保圖片不變形 */
+    display: block; /* 讓圖片成為區塊元素 */
+    margin: 0 auto; /* 讓圖片水平置中 */
+}
+
+
+</style>
+
+
+
+<body>
+    <div id="header-container"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch("header.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("header-container").innerHTML = data;
+      })
+      .catch(error => console.error("載入 header 失敗:", error));
+  });
+</script>
+
+
+
+    
+    <div class="beginning">
+
+        <h2>踏入關西 X
+            <span title="哞~~~~ ">
+                大啖近畿
+            </span>
+        </h2>
+        <h1 style="font-size: 20px;">倉敷美觀地區 瀬戸大橋 鷲羽山 姬路城 書寫山圓覺寺 天橋立 伊根町 貴船神社 清水寺 梅田藍天大廈 心齋橋    
+            <br><br>**踏入關西 X 大啖近畿 此行程，每台車須多花TWD 5800，因租車甲地(岡山)借乙地(大阪)還**
+        </h1>
+        <div class="container">
+            <!-- 左側圖片 -->
+            <img src="https://www.bubu-jp.com/wp-content/uploads/2024/02/pixta_71851928_M.jpg" alt="新倉山淺間公園">
+            
+            <!-- 右側白色框框 -->
+            <div class="price-card">
+                <p style="font-size: 25px; color: blue; font-weight: bold; text-align: center;">TWD 30,000(不含餐)</p>
+            
+                <!-- 這五行先靠左，再向右移一點 -->
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">成團人數:12人</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">旅遊方式:自駕</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">去程2026暑(預計7天6夜)</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">回程2026暑</p>
+                <p style="font-size: 20px; color: black; text-align: left; margin-left: 20px;">城市:關東</p>
+            
+                <p style="font-size: 20px; color: black; font-weight: bold; text-align: center;">翔翔旅行社保留最終解釋權</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="flight-card">
+        <h2>✈ 本次航班</h2>
+        <p class="notice">還沒確定</p>
+        
+        <table class="flight-table">
+            <tr>
+                <td>去程</td>
+                <td>泰獅<br><span class="gray-text">SL394</span></td>
+                <td class="gray-text">2025/03/18 (二)</td>
+                <td class="flight-time">12:10</td>
+                <td class="destination">台灣桃園國際機場</td>
+                <td class="flight-arrow">→</td>
+                <td class="flight-time">16:15</td>
+                <td class="destination">東京成田機場</td>
+            </tr>
+            <tr>
+                <td>回程</td>
+                <td>泰獅<br><span class="gray-text">SL395</span></td>
+                <td class="gray-text">2025/03/22 (六)</td>
+                <td class="flight-time">17:15</td>
+                <td class="destination">東京成田機場</td>
+                <td class="flight-arrow">→</td>
+                <td class="flight-time">20:20</td>
+                <td class="destination">台灣桃園國際機場</td>
+            </tr>
+        </table>
+    </div>
+    
+    
+    <div class="divider-line">
+        <span class="divider-text">行程特色</span>
+    </div>
+    
+    
+
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">倉敷美觀地區</h1>
+    <div class="journey">
+        <img src="https://place.matcha-jp.com/resize/1280x2000/2024/02/19-18-01-37-1001917491399653a9fe66550faa7442c7a7.webp?w=656" alt="主圖片" class="main-img">
+            <img src="https://margaret.tw/wp-content/uploads/nEO_IMG_DSC06459.jpg" alt="右上圖片">
+            <img src="https://place.matcha-jp.com/resize/1280x2000/2024/02/19-18-00-25-1001112036de723451dbbbc369083a7c525d.webp?w=656" alt="右下圖片">
+    </div>
+        <p class="journey-text">
+            <strong>倉敷美觀地區</strong>（くらしきびかんちく）是岡山縣倉敷市最具代表性的歷史景點，以其江戶時代風格的白壁建築、
+                傳統運河與獨特的文藝氛圍著稱。這裡曾是繁榮的商業地區，如今則成為觀光客尋找懷舊氛圍與藝術文化的最佳去處。
+        </p>
+    <details>
+        <p class="journey-text">
+            🏯 <strong>江戶時代的風情街道</strong><br>  
+        </p> 
+        <p class="journey-text">   
+            這片區域最迷人的地方，就是兩側排列著白壁町家（傳統日式建築）與黑瓦倉庫，沿著倉敷川而建。
+            當你漫步其中，仿佛穿越回江戶時代的商人街，尤其是在黃昏時分，夕陽映照在白牆上，光影交錯，景色格外動人。
+        </p> 
+        <p class="journey-text">
+            ⛵ <strong>倉敷川遊船體驗</strong><br>  
+        </p> 
+        <p class="journey-text">   
+            運河曾是當時貨運的重要通道，如今遊客可以搭乘小舟緩緩遊覽，感受水面倒映著古色古香建築的美景。船夫還會穿上傳統服飾，為你講解這座小鎮的歷史，特別適合放鬆心情、沉浸於和風美學之中。 
+        </p> 
+        <p class="journey-text">
+            🎨 <strong>大原美術館——西洋藝術寶庫</strong><br>  
+        </p> 
+        <p class="journey-text">   
+            倉敷美觀地區最有名的藝術殿堂非 大原美術館 莫屬！這裡收藏了西方大師的作品，如莫內、雷諾瓦、馬蒂斯等人的畫作，還有日本近代藝術家的作品，對於藝術愛好者來說，絕對是不容錯過的驚喜。
+        </p>
+    
+    </details>
+
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">鷲羽山</h1>
+    <div class="journey">
+        <img src="https://place.matcha-jp.com/resize/1280x2000/2024/02/19-15-18-01-100724dd9f6279283933b50051ee9e57ed8b.webp?w=656" alt="主圖片" class="main-img">
+            <img src="https://tenjo.tw/wp-content/uploads/JAP_7001.jpg" alt="右上圖片">
+            <img src="https://speedbug.cc/wordpress/wp-content/uploads/Mt-Wa-Shu-Zan22.jpg" alt="右下圖片">
+    </div>
+        <p class="journey-text">
+            <strong>鷲羽山</strong>（わしゅうざん）位於岡山縣倉敷市，是欣賞瀨戶內海與瀨戶大橋的最佳景點之一，以壯麗的海景和日落聞名。
+        </p> 
+        <details>
+        <p class="journey-text">
+            <strong>360°無敵海景：</strong><br>
+            山頂觀景台可眺望瀨戶內海的多島美景，天氣好時能看到瀨戶大橋橫跨大海，連接本州與四國。
+        </p> 
+        <p class="journey-text">   
+            <strong>絕美夕陽：</strong><br>
+            被選為「日本百大夕陽名所」，黃昏時分，金色陽光灑落在海面與島嶼間，美得令人屏息。
+        </p> 
+        <p class="journey-text">   
+            <strong>戶外活動天堂：</strong><br>
+            適合健行、攝影、野餐，沿途步道輕鬆易走，不需專業裝備。
+        </p> 
+        <p class="journey-text">
+            <strong>📍 必訪景點</strong><br>
+            <strong>鷲羽山展望台</strong>（最佳拍攝點，可見瀨戶大橋}<br>
+            <strong>鷲羽山遊步道</strong>（環繞山頂，輕鬆散步賞海景）<br>
+            <strong>夕陽觀景區</strong>（黃昏時來這裡，保證不虛此行）
+        </p>
+        </details>
+
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">姬路城</h1>
+    <div class="journey">
+        <img src="https://s3-ap-northeast-1.amazonaws.com/thegate/2023/06/14/17/55/41/Himeji-castle%20(1)_1200x675.jpg" alt="主圖片" class="main-img">
+        <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS-7RSKoHK7panC0MagL1gOt86k1wbs-nij6RXED5BE2Zr_57gNckfBPQwceaEQLxmq1e6jgyb7H7pfYoZck25hl9hBHIfpm9UFVdItqg" alt="右上圖片">
+        <img src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSboWLmkoJjCh4H7GQPZ5xZ41rXeSk_c6RjXv8E5RWSVAjnu6eCbWLQY4agB650_01BfiSbVXd9aNwhbBrTBck3dCdlVXtw56xpvvJRkw" alt="右下圖片">
+    </div>
+    <p class="journey-text">
+        <strong>🏯 姬路城（白鷺城）——日本最美的天守閣</strong><br>
+        位於兵庫縣，是<strong>日本現存最完整的原始城堡，也是日本第一座世界文化遺產。</strong><br>因其優雅的白色外牆，猶如白鷺展翅，又被稱為白鷺城。
+    </p>
+    <details>
+         <p class="journey-text">
+            <strong>🏰 日本最壯麗的城堡建築</strong><br>
+        </p>
+        <p class="journey-text">
+            <strong>保留完整的天守閣：</strong>城內建築皆為江戶時代原貌，不像其他城堡多為重建，擁有獨特的歷史價值。<br>
+            <strong>五重六層天守：</strong>站在頂層可俯瞰整座姬路市，遠眺瀨戶內海。<br>
+            <strong>巧妙的防禦設計：</strong>曲折迂迴的城道、暗藏機關的設計，讓姬路城曾經固若金湯。
+        </p>
+        <p class="journey-text">
+            <strong>🌸 四季皆美，夏季特色</strong><br>
+        </p>
+        <p class="journey-text">
+            <strong>夏季的姬路城，白牆在烈日下更加耀眼，與蔚藍天空形成極美對比。</strong><br>
+            <strong>城內庭園如「好古園」充滿綠意，</strong>午後吹拂的微風帶來涼意，適合慢遊。<br>
+            <strong>夏季夜間點燈活動</strong>（部分期間限定），讓城堡在夜幕下散發夢幻氛圍。
+        </p>
+    </details>
+
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">書寫山圓覺寺</h1>
+    <div class="journey">
+        <img src="https://imageproxy.pixnet.cc/imgproxy?url=https://c1.staticflickr.com/1/679/32782114612_4caf9a2fca_o.jpg&width=800&height=533" alt="主圖片" class="main-img">
+        <img src="https://visit-himeji.com/wp/wp-content/uploads/2023/01/d20de7c4e5e5d8af473b00f7faf55c0a.jpg" alt="右上圖片">
+        <img src="https://visit-himeji.com/wp/wp-content/uploads/2023/01/f2318b61dcd246d83c724d718de3f13f.jpg" alt="右下圖片">
+    </div>  
+    <p class="journey-text">
+        <strong>⛰️ 書寫山圓覺寺（しょしゃざん えんぎょうじ）——隱藏於山中的千年古剎</strong><br>
+        位於兵庫縣姬路市，是西國三十三所靈場之一，擁有超過1000年的歷史，被譽為「西之比叡山」。
+        這座寺院隱身於書寫山上，四周被茂密森林環繞，擁有古樸壯麗的建築群，並曾是電影《最後的武士》與大河劇的取景地。
+    </p>
+    <details>
+         <p class="journey-text">
+            <strong>🏛 千年歷史的修行聖地</strong><br>
+        </p>
+        <p class="journey-text">
+            由性空上人於966年創建，是日本天台宗的重要修行道場之一。<br>
+            因環境清幽，被稱為<strong>「西日本最美的隱世佛寺」。</strong><br>
+            擁有壯觀的佛堂群，如「大講堂」「食堂（じきどう）」「常行堂」，每一座都散發出歷史的厚重感。
+        <p class="journey-text">
+            <strong>🌲 自然環繞，夏季的涼爽秘境</strong><br>
+        </p>
+        <p class="journey-text">
+            夏天的書寫山涼爽寧靜，參天古木形成天然遮蔽，適合避暑散策。<br>
+            沿著石階步行，空氣清新，微風拂面，宛如穿越時光進入日本古代修行者的世界。<br>
+            遊客可選擇搭乘 <strong>書寫山纜車</strong>上山，再步行至寺院，沿途可<strong>俯瞰姬路市與瀨戶內海的美景。</strong></strong>
+        </p>
+        <p class="journey-text">
+            <strong>📍 必訪景點</strong><br>
+            <strong>大講堂：</strong>主殿之一，曾是修行僧學習佛法之地。<br>
+            <strong>食堂（じきどう）：</strong>古老的木造建築，過去是僧人用餐與住宿的地方。<br>
+            <strong>常行堂：</strong>擁有獨特的舞台設計，與清水寺有異曲同工之妙。<br>
+            <strong>圓教寺摩尼殿：</strong>供奉如意輪觀音的殿堂，視野開闊，可俯瞰整座寺院。   
+        </p>
+    </details>
+        
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">伊根町</h1>
+    <div class="journey">
+        <img src="https://resources.matcha-jp.com/resize/720x2000/2017/06/16-28968.webp" alt="主圖片" class="main-img">
+            <img src="https://today-obs.line-scdn.net/0hL5GalvdRExp6GAWHi-tsTUJOH2tJfgkTWC5YeVofSytVNFwcR3xAeV1NTjZeKFZOWnkIfg8QS3lTLlAYQA/w644" alt="右上圖片">
+            <img src="https://tabiiro.travel/img/articles/18083101/main.png" alt="右下圖片">
+    </div>
+    <p class="journey-text">
+        <strong>⛵ 伊根町（伊根の舟屋）——日本最詩意的海上漁村</strong><br>
+        位於京都府北部，是一座擁有超過230間舟屋（船屋）的漁村，被譽為「日本最美的漁村之一」。
+        舟屋是當地特有的傳統建築，<strong>一樓停泊漁船，二樓則作為居住空間</strong>，沿著海岸線排列，形成獨特的水上村落風景。
+    </p>
+    <details>
+         <p class="journey-text">
+            <strong>🚤 獨特的舟屋風景</strong><br>
+        </p>
+        <p class="journey-text">
+            <strong>全日本僅此一處</strong>，舟屋建築依山傍海，展現江戶時代以來的傳統漁村生活。<br>
+            海水清澈，仿佛能直接與大海共存，傍晚時分，夕陽灑落在舟屋上，美得像幅畫。
+        <p class="journey-text">
+            <strong>🏝 夏季限定的悠閒海上體驗</strong><br>
+        </p>
+        <p class="journey-text">
+            <strong>搭乘伊根灣遊船：</strong>近距離欣賞舟屋群，還可餵食海鷗。<br>
+            <strong>SUP（立槳衝浪）與海上活動：</strong>夏季最適合來這裡體驗划船、釣魚或在靜謐的海灣中漂浮放鬆。<br>
+            <strong>品嚐當地海鮮：</strong>伊根的生魚片、牡蠣、海鮮丼極為新鮮，特別推薦當地的「伊根產鰤魚（寒鰤）」。
+        </p>
+        <p class="journey-text">
+            <strong>📍 推薦玩法</strong><br>
+            1.搭乘<strong>伊根灣遊覽船</strong>從海上欣賞舟屋之美。<br>
+            2.漫步伊根浦公路，沿著海岸欣賞<strong>傳統舟屋與寧靜的海景。</strong>古老的木造建築，過去是僧人用餐與住宿的地方。<br>
+            3.<strong>參觀道之驛「舟屋の里伊根」</strong>，從高處俯瞰整片舟屋群，是最佳拍照地點！<br>
+            4.住一晚舟屋民宿<strong>體驗當地人與大海共生的獨特生活方式。</strong>
+        </p>
+        <p class="journey-text">
+            <strong>🌊 為什麼值得一遊？</strong><br>
+            📌 夏天來這裡划船、吹海風、住舟屋，感受最靜謐、詩意的日本海灣風情！ ⛵✨
+        </p> 
+    </details>       
+
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">天橋立</h1>
+    <div class="journey">
+        <img src="https://www.funtime.com.tw/blog/wp-content/uploads/2020/02/210707_1.jpg" alt="主圖片" class="main-img">
+            <img src="https://wp-odai.wamazing.com/media/wp-content/uploads/sites/2/2023/05/amanohashidatetravel_pixta_58951020_M.jpg.webp" alt="右上圖片">
+            <img src="https://img.bigfang.tw/2018/07/1531701858-c982a7164143b1b230db2ec6e9fab7d2.jpg" alt="右下圖片">
+            <div class="extra-images">
+                <img src="https://selfgotravel.com/wp-content/uploads/2018/04/2.%E5%B1%B1%E9%96%80%E9%BB%83%E9%87%91%E9%96%A3.jpg">
+                <img src="https://immay.tw/wp-content/uploads/pixnet/1410017418-3334718931_l.jpg" alt="Extra Image 2">
+                <img src="https://www.kyototourism.org/wp/wp-content/uploads/2022/01/08_D4_3732-1024x683.jpg" alt="Extra Image 3">
+                <img src="https://static.gltjp.com/glt/data/article/21000/20850/20241126_121100_4ec1e840_w1920.webp" alt="Extra Image 4">
+            </div>         
+    </div>
+    <h1 style="font-size: 10x; "></h1>
+        <p class="journey-text">
+            <strong>天橋立</strong>是日本「三景」（與宮島、松島並列）之一，位於京都府宮津市的宮津灣內，是一條由砂洲與松樹組成的自然奇觀，全長約3.6公里，形狀宛如「天上的橋」，因此得名。
+        </p>
+    <details> 
+        <p class="journey-text">
+                <strong>特色介紹：</strong><br>
+        </p> 
+        <p class="journey-text">
+            <strong>飛龍觀（股之ぞき）</strong><br>
+            在天橋立的觀景台（如「傘松公園」），遊客可以背對天橋立、彎腰從兩腿之間觀看，
+            這樣看過去的景色就像是一條騰空飛舞的龍，這也是當地最著名的「股之ぞき（跨下看）」觀景方式。
+        </p> 
+        <p class="journey-text">   
+            <strong>傘松公園纜車</strong><br>
+            搭乘纜車或單人吊椅上山，可以從高處俯瞰天橋立，天氣晴朗時視野極佳，能夠清楚看到整條砂洲的壯麗景色。
+        </p> 
+        <p class="journey-text">   
+            <strong>自行車與步行探索</strong><br>
+            遊客可以租借自行車或步行穿越天橋立，沿途有約8000棵松樹，沙灘與清澈海水讓人感受到寧靜的自然之美。
+        </p>
+        <p class="journey-text">   
+            <strong>元伊勢籠神社與智恩寺</strong><br>
+            <strong>元伊勢籠神社（もといせ こもじんじゃ）：</strong>據傳是伊勢神宮的起源地之一，擁有重要的歷史地位。<br>
+            <strong>智恩寺：</strong>供奉「文殊菩薩」，據說能賜予智慧，因此學生與學者經常來此參拜。<br>
+        </p>
+        <p class="journey-text">   
+            <strong>海鮮與當地美食</strong><br>
+            天橋立地區的海鮮新鮮美味，特別是牡蠣、鰤魚（鰤），冬季還可以品嚐到著名的松葉蟹。
+        </p>
+        <p class="journey-text">
+            天橋立不僅是一個壯觀的自然景點，也充滿了文化與歷史氣息，是京都府北部最受歡迎的旅遊勝地之一。
+        </p>
+    </details> 
+    <div class="space"></div>
+    <h1 style="font-size: 30px; color:green;">貴船神社</h1>
+    <div class="journey">
+        <img src="https://static.gltjp.com/glt/data/article/21000/20459/20231003_103234_7ec4e9cf_w1920.webp" alt="主圖片" class="main-img">
+        <img src="https://imageproxy.pixnet.cc/imgproxy?url=https://pic.pimg.tw/kimi77228/1661008871-1032914873-g_n.jpg&width=1024&height=576" alt="右上圖片">
+        <img src="https://static.gltjp.com/glt/data/article/21000/20459/20250105_162238_5e48dacf_w1920.webp" alt="右下圖片">
+        <div class="extra-images">
+            <img src="https://s.yimg.com/ny/api/res/1.2/QNYddfWiDJwSnQsnHDo1Wg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTQ1Nw--/https://media.zenfs.com/vi/live_japan_461/f4035a9fc003dd201cde98430c91bc07" alt="Extra Image 1">
+            <img src="https://japantravel.co/wp-content/uploads/2024/07/%E8%B2%B4%E8%88%B9%E7%A5%9E%E7%A4%BE-%E5%B7%9D%E5%BA%8A-1.jpg" alt="Extra Image 2">
+            <img src="https://www.funtime.com.tw/blog/wp-content/uploads/2017/05/213.jpg" alt="Extra Image 3">
+            <img src="https://dycj73xya60xf.cloudfront.net/2017/06/kibune_kawadoko_15.jpg   " alt="Extra Image 4">
+        </div>
+    </div>
+    <h1 style="font-size: 10x; "></h1>
+        <p class="journey-text"><strong>貴船神社</strong>（Kifune Jinja）是位於京都左京區鞍馬山的古老神社，主祭水之神「高龗神」（たかおかみのかみ）。此神社因與水、緣結與祈雨有關而受到信仰，被認為是掌管水源與良緣的靈驗之地。
+        </p>
+    <details> 
+        <p class="journey-text">
+            <strong>特色介紹：</strong><br>
+        </p> 
+        <p class="journey-text">
+            <strong>紅色燈籠石階</strong><br>
+            貴船神社最著名的景色是沿著參道兩旁排列的紅色燈籠與石階，在春夏秋冬各有不同的風貌，極具魅力。
+        </p> 
+        <p class="journey-text">   
+            <strong>水占卜（水占みくじ）</strong><br>
+            貴船神社特有的「水占卜」將籤紙放入神社內的水池，文字會逐漸浮現，被認為能準確指引運勢。
+        </p> 
+        <p class="journey-text">    
+        <strong>川床料理（流しそうめん）</strong><br>
+            夏季，貴船地區有獨特的「川床料理」，餐廳在溪流之上搭建木平台，讓遊客享受沁涼的流水素麵和京料理，是京都夏天避暑勝地。。                
+        </p>
+        <p class="journey-text">    
+            <strong>結緣能量</strong><br>
+            據說貴船神社的「結社」是日本最強的結緣神社之一，許多情侶與希望戀愛順利的人會前來參拜。              
+        </p>
+        <p class="journey-text">    
+            <strong>雨與水之靈驗地</strong><br>
+            古時候，貴船神社是皇室祈求雨水豐沛之地，現在仍被視為掌管水源的重要神社，許多餐飲業、農業從業者會前來祈願生意興隆與五穀豐收。                
+        </p>
+    </details> 
+    <h1 style="font-size: 30px; color:green;">清水寺</h1>
+    <div class="journey">
+        <img src="https://www.kiyomizudera.or.jp/assets/img/event/night_ph_05.jpg" alt="主圖片" class="main-img">
+        <img src="https://www.agoda.com/wp-content/uploads/2024/07/Kiyomizu-dera-Temple-Kyoto-featured-1244x700.jpg" alt="右上圖片">
+        <img src="https://cdn.zekkei-japan.jp/images/spots/010e2cce5e38994cf2c92cf3893d3468.jpg" alt="右下圖片">
+        <div class="extra-images">
+            <img src="https://kyoto.travel/tw/shrine_temple/l0fe8b0000000eru-img/o8kivf00000003mm.jpg" alt="Extra Image 1">
+            <img src="https://mandyinjp.com/wp-content/uploads/2023/11/20231112202217_0.jpg" alt="Extra Image 2">
+            <img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/20/00/a2000624/img/zh-tw/a2000624_parts_605097c35615b.jpg?20250220000000&q=80&rw=686&rh=490" alt="Extra Image 3">
+            <img src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_crop,x_0,y_668,h_668,w_3000/activities/vw4yxt2fhf87yxsriqsc/%E9%87%91%E9%96%A3%E5%AF%BA%EF%BC%86%E6%B8%85%E6%B0%B4%E5%AF%BA%EF%BC%86%E4%BC%8F%E8%A6%8B%E7%A8%BB%E8%8D%B7%E5%A4%A7%E7%A4%BE%E4%BA%AC%E9%83%BD%E4%B8%80%E6%97%A5%E9%81%8A%E4%B8%A8%E5%A4%A7%E9%98%AA%E4%BA%AC%E9%83%BD%E5%87%BA%E7%99%BC.webp">
+        </div>       
+    </div>
+        <p class="journey-text">
+            <strong>清水寺</strong>（Kiyomizu-dera）是位於日本京都市東山區的著名佛教寺院，創建於公元778年，屬於北法相宗。本寺以其宏偉的木造舞台、春櫻秋楓的美景以及音羽瀑布的清泉而聞名，被列為世界文化遺產（古都京都的文化財之一）。
+        </p>
+        <details>
+            <p class="journey-text">
+                <strong>清水舞台：</strong><br>
+                清水寺的標誌性建築，由139根木柱支撐，懸空於山坡之上，提供壯麗的京都市景色。此舞台以「懸造」技術建造，未使用一根釘子。
+            </p> 
+            <p class="journey-text">   
+                <strong>音羽瀑布：</strong><br>
+                音羽の滝的泉水是順著音羽山湧出
+                因為喝起來甜美，所以也被列為日本十大名泉之一。
+                位於主殿下方的泉水，<strong>據說飲用能帶來智慧或長壽或戀愛運</strong>，順序由左至右分別是:智慧(學業)、戀愛運(人際)、健康(長壽)，
+                每個人只能選擇一種喝，並且只能喝上一口。
+                如果喝了一種以上，你所祈求實現的願望就無法實現。再來，如果你喝到兩口，你所祈求的願望只能實現一半    
+                ，三口則是三分之一，以此類推！因此吸引許多參拜者。
+            </p> 
+        <p class="journey-text">清水寺不僅是觀光勝地，也是日本文化與歷史的重要象徵，特別是在「清水の舞台から飛び降りる」（意指做出重大決定）的日語俗諺中，反映了其歷史文化意涵。
+        </p> 
+        </details>      
+    <div class="space"></div>
+
+    <h1 style="font-size: 30px; color:green;">梅田藍天大廈</h1>
+    <div class="journey">
+        <img src="https://image.kkday.com/v2/image/get/w_1900%2Cc_fit%2Cq_55/s1.kkday.com/product_22352/20220224101850_bsv7a/jpg" alt="主圖片" class="main-img">
+            <img src="https://mimihan.tw/wp-content/uploads/20190913125043_3.jpg" alt="右上圖片">
+            <img src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ms7l2qvskvwwbofmfmtx/%E6%A2%85%E7%94%B0%E8%97%8D%E5%A4%A9%E5%A4%A7%E5%BB%88%E7%A9%BA%E4%B8%AD%E5%BA%AD%E5%9C%92%E5%B1%95%E6%9C%9B%E5%8F%B0%E9%96%80%E7%A5%A8.jpg" alt="右下圖片">
+    </div>
+        <p class="journey-text">
+            <strong>清水寺</strong>（Kiyomizu-dera）是位於日本京都市東山區的著名佛教寺院，創建於公元778年，屬於北法相宗。本寺以其宏偉的木造舞台、春櫻秋楓的美景以及音羽瀑布的清泉而聞名，被列為世界文化遺產（古都京都的文化財之一）。
+        </p>
+    <details> 
+        <p class="journey-text">
+            <strong>特色介紹：</strong><br>
+        </p> 
+        <p class="journey-text">
+            <strong>清水舞台：</strong><br>
+            清水寺的標誌性建築，由139根木柱支撐，懸空於山坡之上，提供壯麗的京都市景色。此舞台以「懸造」技術建造，未使用一根釘子。
+        </p> 
+        <p class="journey-text">   
+            <strong>音羽瀑布：</strong><br>
+            音羽の滝的泉水是順著音羽山湧出
+            因為喝起來甜美，所以也被列為日本十大名泉之一。
+            位於主殿下方的泉水，<strong>據說飲用能帶來智慧或長壽或戀愛運</strong>，順序由左至右分別是:智慧(學業)、戀愛運(人際)、健康(長壽)，
+            每個人只能選擇一種喝，並且只能喝上一口。
+            如果喝了一種以上，你所祈求實現的願望就無法實現。再來，如果你喝到兩口，你所祈求的願望只能實現一半    
+            ，三口則是三分之一，以此類推！因此吸引許多參拜者。
+        </p> 
+        <p class="journey-text">清水寺不僅是觀光勝地，也是日本文化與歷史的重要象徵，特別是在「清水の舞台から飛び降りる」（意指做出重大決定）的日語俗諺中，反映了其歷史文化意涵。
+        </p> 
+    </details>       
+    <div class="space"></div>
+
+    <h1 style="font-size: 30px; color:green;">心齋橋</h1>
+    <div class="journey">
+        <img src="https://www.funtime.com.tw/blog/wp-content/uploads/2020/09/413.jpg" alt="主圖片" class="main-img">
+        <img src="https://cdn.zekkei-japan.jp/images/areas/8bb3598e86006c8a2a283f36e14a0650.jpg" alt="右上圖片">
+        <img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/20/00/a2000456/img/zh-tw/a2000456_parts_5ecf6a6346ab5.jpg?20230930150800&q=80&rw=686&rh=490" alt="右下圖片">
+    </div>
+    <p class="journey-text">
+        <strong>🏙️ 心齋橋（Shinsaibashi）——大阪最熱鬧的購物與美食天堂</strong><br>
+        心齋橋（しんさいばし）是大阪最著名的購物與娛樂區，擁有歷史悠久的商店街、高級品牌店、
+        特色潮流店以及琳瑯滿目的美食，被譽為<strong>「大阪購物與美食的心臟地帶」</strong>。這裡不僅是觀光客的必訪之地，也是體驗大阪活力的最佳場所！
+    </p>
+    <details>
+         <p class="journey-text">
+            <strong>🚤 獨特的舟屋風景</strong><br>
+        </p>
+        <p class="journey-text">
+            <strong>全日本僅此一處</strong>，舟屋建築依山傍海，展現江戶時代以來的傳統漁村生活。<br>
+            海水清澈，仿佛能直接與大海共存，傍晚時分，夕陽灑落在舟屋上，美得像幅畫。
+        <p class="journey-text">
+            <strong>🏝 夏季限定的悠閒海上體驗</strong><br>
+        </p>
+        <p class="journey-text">
+            <strong>搭乘伊根灣遊船：</strong>近距離欣賞舟屋群，還可餵食海鷗。<br>
+            <strong>SUP（立槳衝浪）與海上活動：</strong>夏季最適合來這裡體驗划船、釣魚或在靜謐的海灣中漂浮放鬆。<br>
+            <strong>品嚐當地海鮮：</strong>伊根的生魚片、牡蠣、海鮮丼極為新鮮，特別推薦當地的「伊根產鰤魚（寒鰤）」。
+        </p>
+        <p class="journey-text">
+            <strong>📍 推薦玩法</strong><br>
+            1.搭乘<strong>伊根灣遊覽船</strong>從海上欣賞舟屋之美。<br>
+            2.漫步伊根浦公路，沿著海岸欣賞<strong>傳統舟屋與寧靜的海景。</strong>古老的木造建築，過去是僧人用餐與住宿的地方。<br>
+            3.<strong>參觀道之驛「舟屋の里伊根」</strong>，從高處俯瞰整片舟屋群，是最佳拍照地點！<br>
+            4.住一晚舟屋民宿<strong>體驗當地人與大海共生的獨特生活方式。</strong>
+        </p>
+        <p class="journey-text">
+            <strong>🌊 為什麼值得一遊？</strong><br>
+            📌 夏天來這裡划船、吹海風、住舟屋，感受最靜謐、詩意的日本海灣風情！ ⛵✨
+        </p> 
+    </details>      
+    <div class="space"></div>
+           
+    </p>
+
+
+
+    <div class="space"></div> <!-- 這是一個隱形空白區塊 -->
+
+    
+
+
+</body>
+</html>
